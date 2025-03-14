@@ -1,0 +1,62 @@
+
+====================================
+Vendor Table:
+====================================
+CREATE TABLE Vendor (
+    VendorID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Phone VARCHAR(15),
+    Address VARCHAR(255)
+);
+
+----------------------------------
+
+
+==================================
+Product Table:
+==================================
+CREATE TABLE Product (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(255),
+    Category VARCHAR(255),
+    CostPrice DECIMAL(10,2),
+    RetailPrice DECIMAL(10,2),
+    Quantity INT,
+    VendorID INT,
+    FOREIGN KEY (VendorID) REFERENCES Vendor(VendorID)
+);
+
+----------------------------------
+
+============================================================
+Order Table:
+============================================================
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerName VARCHAR(255),
+    CustomerContactPhone VARCHAR(15),
+    OrderDate DATE,
+    CustomerAddress VARCHAR(255),
+    Status VARCHAR(255),
+    ProductID INT,
+    Quantity INT,
+    VendorID INT,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    FOREIGN KEY (VendorID) REFERENCES Vendor(VendorID)
+);
+
+-------------------------------------------------------------
+
+===============================================================
+Transaction Table:
+===============================================================
+CREATE TABLE Transaction (
+    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
+    Type VARCHAR(255),
+    Amount DECIMAL(10,2),
+    ProductID INT,
+    OrderID INT,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+-------------------------------------------------------------
